@@ -167,9 +167,7 @@ Security → API → Tokens → Create Token
 
 Get Okta Account ID
 
-amazonstudios-admin (prod)
-
-amazonstudios-dev (dev)
+ex. dev-123456abc
 
 Get Okta App ID
 
@@ -256,17 +254,17 @@ Create Group in okta that looks like this:
 
 aws_[account_id]_[FederatedRole]
 
-ex: aws_012345678901_dlp_qs_FederatedRole
+ex: aws_012345678901_qs_gov_FederatedRole
 
 Add all of your quicksight users to this role.
 
 #### c. [Okta Console] Create QuickSight User Role Groups in Okta
 
-dlp_qs_role_admin for QUICKSIGHT ADMINS
+qs_gov_role_admin for QUICKSIGHT ADMINS
 
-dlp_qs_role_author for QUICKSIGHT AUTHORS
+qs_gov_role_author for QUICKSIGHT AUTHORS
 
-dlp_qs_role_reader for QUICKSIGHT READERS
+qs_gov_role_reader for QUICKSIGHT READERS
 
 #### c. [Okta Console] Update Group Mapping
 
@@ -308,9 +306,9 @@ Either manually run the GetOktaInfo Lambda Function or wait for the fixed schedu
 
 A GetOktaInfo Lambda Function will pull Okta Group information based on the prefix specified in cdk_modules/config.py
 
-For example, if your prefix is dlp_qs ... then any group in Okta with that prefix will be created in QuickSight.
+For example, if your prefix is qs_gov ... then any group in Okta with that prefix will be created in QuickSight.
 
-Okta users in the dlp_qs_[group name] will be automatically assigned to those groups in QuickSight.
+Okta users in the qs_gov_[group name] will be automatically assigned to those groups in QuickSight.
 
 Either manually run the GetOktaInfo Lambda Function or wait for the fixed schedule to sync Okta and QuickSight Users. As previously stated, this process will create new QuickSight groups and add QuickSight users to those groups.
 
@@ -320,11 +318,11 @@ Either manually run the GetOktaInfo Lambda Function or wait for the fixed schedu
 
 example:
 
-dlp_qs_role_admin for QUICKSIGHT ADMINS
+qs_gov_role_admin for QUICKSIGHT ADMINS
 
-dlp_qs_role_author for QUICKSIGHT AUTHORS
+qs_gov_role_author for QUICKSIGHT AUTHORS
 
-dlp_qs_role_reader for QUICKSIGHT READERS
+qs_gov_role_reader for QUICKSIGHT READERS
 
 The user will automatically be given a role based on the role group they are in. If a user is in more than one group, it will assign the user with the highest level.
 
@@ -340,7 +338,7 @@ QuickSight IAM Policy Assignments are managed by Policy Manifest Files. Here is 
 {
     "policies":[
        {
-            "group": "dlp_qs_dev_group_pandora",
+            "group": "qs_gov_dev_group_pandora",
             "namespace": "default",
             "databases": [
                 {
@@ -371,7 +369,7 @@ Key:
 
 What do you do with this file? Add it to the QuickSight Governance Bucket in the following location:
 
-s3://<bucket-name>/dlp_qs/policies/
+s3://<bucket-name>/qs_gov/policies/
 
 When the file lands in S3, it triggers a Lambda Function that will:
 
@@ -389,7 +387,7 @@ Administrator adds User to the QuickSight federated role group
 
 Administrator adds User to a QuickSight User Role Group (admin, author, reader)
 
-Administrator creates new group or adds User to existing org group (such as dlp_qs_pandora)
+Administrator creates new group or adds User to existing org group (such as qs_gov_pandora)
 
 Administrator modifies or creates a manifest file for Asset Permissions and Policy assignments for that new/existing Okta QuickSight Group and uploads them to S3
 
@@ -403,7 +401,7 @@ Launch QuickSight app named “Amazon QuickSight”
 
 #### b. Get Access
 
-Data Lake Permissions are derived from your Okta Groups. (i.e. Okta Group dlp_qs_group_finance might have access to the finance data). If a user / group does not have Athena access to underlying data, then access to QuickSight assets will be revoked
+Data Lake Permissions are derived from your Okta Groups. (i.e. Okta Group qs_gov_group_finance might have access to the finance data). If a user / group does not have Athena access to underlying data, then access to QuickSight assets will be revoked
 
 To Get Access, talk to your administrator
 
@@ -491,7 +489,7 @@ Launch QuickSight app named “Amazon QuickSight”
 
 #### b. Get Access
 
-Data Lake Permissions are derived from your Okta Groups. (i.e. Okta Group dlp_qs_group_finance might have access to Finance data). If a user / group does not have Athena access to underlying data, then access to QuickSight assets will be revoked
+Data Lake Permissions are derived from your Okta Groups. (i.e. Okta Group qs_gov_group_finance might have access to Finance data). If a user / group does not have Athena access to underlying data, then access to QuickSight assets will be revoked
 
 To Get Access to certain dashboards / datasets, talk to your administrator.
 
