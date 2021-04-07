@@ -495,7 +495,49 @@ To Get Access to certain dashboards / datasets, talk to your administrator.
 
 ---
 
-## 6. Extended Learning
+## 6. Glossary
+
+**Okta** - the main source of identity management. enterprise-grade, identity management service, built for the cloud, but compatible with many on-premises applications. With Okta, IT can manage any employee's access to any application or device.
+
+**Amazon QuickSight** - cloud-scale business intelligence (BI) service that you can use to deliver easy-to-understand insights to the people who you work with, wherever they are. Amazon QuickSight connects to your data in the cloud and combines data from many different sources.
+
+**Data Lake** - the AWS S3/Glue Data Lake that holds all your analytical data
+
+**QuickSight Governance Solution** - the custom built solution that ties Okta, QuickSight, and the Data Lake together. Allows Identity Management in QuickSight to be managed via Okta. Allows QuickSight Asset permissions to be derived from a user or group’s Data Lake access.
+
+*User* - a user is an individual in Okta that has been mapped (created) to QuickSight. Since QuickSight utilizes its own identity management, the QuickSight Governance Solution maintains the 1:1 user mapping between Okta and QuickSight.
+
+**Group** - a group exists in Okta and can hold any number of Okta users. Okta Groups with the prefix 'qs_gov' will be automatically mapped to QuickSight. the QuickSight Governance Solution maintains the 1:1 group mapping between Okta and QuickSight.  Groups are the main vehicle for permissions in QuickSight. Groups are given fine-grained access to the Data Lake by an admin
+
+**QuickSight User Role** - every QuickSight user is given a User Role. This can be ADMIN, AUTHOR, or READER.
+
+**QuickSight ADMIN** - a QuickSight super user. Capable of any QuickSight action and can even manage other QuickSight users. Admins also inherit permissions of READER and AUTHOR.
+
+**QuickSight AUTHOR** - a QuickSight creator. Builds QuickSight Assets such as Data Sets, Analyses, and Dashboards for business intelligence and reporting. Can share these QuickSight Assets with other QuickSight users. Authors also inherit permissions of READER.
+
+**QuickSight READER** - a QuickSight consumer. Can only view the QuickSight Dashboards that are shared with the user. Cannot create anything.
+
+**QuickSight Asset** - a QuickSight Data Set, Analysis, or Dashboard. These are the main reporting components in QuickSight. Typical workflow consists of creating a QuickSight Data Set, creating QuickSight Analyses from that QuickSight Data Set, and then publishing QuickSight Dashboards that consist of a collection of QuickSight Analyses.
+
+**QuickSight Data Source** -  the literal connection of QuickSight to a data storage in AWS. In most cases, this will be Amazon Athena.
+
+**QuickSight Data Set** -  a table or custom sql query joining multiple tables of data. This data is then either directly queried or loaded into QuickSight SPICE. QuickSight Analyses are built from QuickSight Data Sets. Can be shared with other ADMINs, AUTHORs, or Groups.
+
+**QuickSight Analysis** -  a collection of visualizations on a QuickSight Data Set. Can be shared with other ADMINs, AUTHORs, or Groups.
+
+**QuickSight Dashboard** - a published final product of one or more QuickSight analyses. These are shared with other ADMINs, AUTHORs, READERs, or Groups.
+
+**QuickSight Direct Query** - a way of accessing Data Lake tables for Analyses. A Direct Query will use Athena to query the Data Lake every time you load a QuickSight Analysis. (usually slower than SPICE)
+
+**QuickSight SPICE** - a way of accessing Data Lake tables for Analyses. Data loaded into SPICE will be loaded directly into Amazon QuickSight for much faster data access. There is a limit to how much data can be loaded into SPICE for a given QuickSight account.
+
+**QuickSight IAM Policy Assignment** - a way of assigning an IAM Policy to a QuickSight group. Permissions to the Data Lake are assigned via IAM Policies.
+
+**Governance** - when a User’s permissions to a QuickSight Asset are validated by determining if that User has access to the data that comprises that QuickSight Asset. ex) if a QuickSight Dashboard containing finance data is shared with a User in Engineering, then that user’s permissions to the QuickSight Dashboard will be revoked. (since they don’t have access to finance data in the Data Lake)
+
+---
+
+## 7. Extended Learning
 
 ### Cross-Account QuickSight Access
 
