@@ -16,7 +16,9 @@
 
 ### 5. Conclusion
 
-### 6. Extended Learning
+### 6. Glossary
+
+### 7. Extended Learning
 
 ---
 
