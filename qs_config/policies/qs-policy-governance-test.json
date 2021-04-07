@@ -1,0 +1,30 @@
+{
+    "policies":[
+       {
+            "group": "test_group_1",
+            "namespace": "default",
+            "databases": [
+                {
+                    "name": "database_1",
+                    "tables": [
+                        "table_1",
+                        "table_2",
+                        "table_3"
+                    ]
+                }
+            ]
+       },
+        {
+            "group": "test_group_2",
+            "namespace": "default",
+            "databases": [
+                {
+                    "name": "database_2",
+                    "tables": [
+                        "table_1"
+                    ]
+                }
+            ]
+        }
+    ]
+}
